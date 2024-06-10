@@ -58,3 +58,9 @@ A******██████████████████████
 ```
 
 <img src="maze/maze.png" alt="Maze" style="width:500px;"/>
+
+## tictactoe
+
+Execute `./run-game.sh`
+
+<img src="tictactoe/tic-tac-toe.png" alt="Maze" style="width:500px;"/>
