@@ -12,7 +12,6 @@ people = {}
 # Maps movie_ids to a dictionary of: title, year, stars (a set of person_ids)
 movies = {}
 
-
 def load_data(directory):
     """
     Load data from CSV files into memory.
@@ -51,7 +50,6 @@ def load_data(directory):
             except KeyError:
                 pass
 
-
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
@@ -83,7 +81,6 @@ def main():
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
-
 def shortest_path(source, target):
     """
     Returns the shortest list of (movie_id, person_id) pairs
@@ -92,9 +89,44 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    # TODO
-    raise NotImplementedError
+    # init the queue holding the current frontier
+    # and add a node containing the source (i.e. actor)
+    frontier = QueueFrontier()
+    frontier.add(Node(state=source, parent=None, action=None))
 
+    # keep track of what has been seen
+    explored = set()
+    num_explored = 0
+    terminated = False
+    solution = None
+
+    while not terminated:
+        if frontier.empty():
+            terminated = True # no solution
+        
+        # pop a node from the frontier
+        node = frontier.remove()
+
+        if node.state == target:
+            path = []
+
+            while node.parent is not None:
+                path.append((node.action, node.state))
+                node = node.parent
+            
+            path.reverse()
+            solution = path
+            terminated = True
+        
+        explored.add((node.action, node.state))
+        num_explored += 1
+
+        for action, state in neighbors_for_person(node.state):
+            if not frontier.contains_state(state) and (action, state) not in explored:
+                child = Node(state=state, parent=node, action=action)
+                frontier.add(child)
+
+    return solution
 
 def person_id_for_name(name):
     """
@@ -120,7 +152,6 @@ def person_id_for_name(name):
         return None
     else:
         return person_ids[0]
-
 
 def neighbors_for_person(person_id):
     """
