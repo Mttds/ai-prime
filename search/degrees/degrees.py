@@ -97,12 +97,11 @@ def shortest_path(source, target):
     # keep track of what has been seen
     explored = set()
     num_explored = 0
-    terminated = False
     solution = None
 
-    while not terminated:
+    while True:
         if frontier.empty():
-            terminated = True # no solution
+            break # no solution
         
         # pop a node from the frontier
         node = frontier.remove()
@@ -115,8 +114,8 @@ def shortest_path(source, target):
                 node = node.parent
             
             path.reverse()
-            solution = path
-            terminated = True
+            solution = path # solution found
+            break
         
         explored.add((node.action, node.state))
         num_explored += 1
