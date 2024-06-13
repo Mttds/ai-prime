@@ -2,7 +2,7 @@
 
 ## knights
 
-'''
+```
 λ python puzzle.py
 Puzzle 0
     A is a Knave
@@ -17,6 +17,10 @@ Puzzle 3
     B is a Knave
     C is a Knight
 
-'''
+```
 
 ## minesweeper
+
+Execute `./run-game.sh`
+
+<img src="minesweeper/minesweeper.png" alt="Maze" style="width:500px;"/>
