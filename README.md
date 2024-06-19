@@ -12,3 +12,4 @@ Load from requirements.txt after creating the virtual env: `pip install -r requi
 
 - search: minimax, breadth-first search, depth-first search, alpha-beta pruning, A* search, greedy best-first search
 - knowledge: propositional logic, predicate (first-order) logic, knowledge engineering, inference, model checking
+- uncertainty: probability, conditional probability, random variables, independence, bayes’ rule, joint probability, bayesian networks, sampling, markov models, hidden markov models.
