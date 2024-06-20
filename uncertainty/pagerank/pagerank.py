@@ -120,6 +120,9 @@ def iterate_pagerank(corpus, damping_factor):
     # update pagerank at each iteration until converged
     converged = False
     while not converged:
+        # for each iter we set it as True because we want to update it to False if any of 
+        # the pages pageranks did not converge yet
+        converged = True
         for page in corpus:
             rank_sum = 0
             for p in corpus:
@@ -131,10 +134,11 @@ def iterate_pagerank(corpus, damping_factor):
             # PR(page) = (1 - d) / N + d * sum[PR(i) / num_links]
             update_pagerank[page] = (1 - damping_factor) / N + damping_factor * rank_sum
         
-        # terminate if difference is too small and we converged
+        # terminate if difference is too small and we converged for all pages
+        # if at least a page has difference greater than epsilon then we keep computing the updated pagerank
         for page in pagerank:
-            if abs(update_pagerank[page] - pagerank[page]) < epsilon:
-                converged = True
+            if abs(update_pagerank[page] - pagerank[page]) > epsilon:
+                converged = False
         
         # set the updated values to be the new values
         pagerank = update_pagerank.copy()
